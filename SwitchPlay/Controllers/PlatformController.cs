@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SwitchPlay.Data;
 using SwitchPlay.Models;
 using SwitchPlay.Services;
 
 namespace SwitchPlay.Controllers
 {
+    [Authorize]
     public class PlatformController : Controller
     {
         public IActionResult GetPlatformCount()

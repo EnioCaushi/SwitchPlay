@@ -2,17 +2,15 @@
 using SwitchPlay.Data;
 using SwitchPlay.Services;
 using SwitchPlay.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SwitchPlay.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
 
-        public IActionResult GetCategoryCount()
-        {
-            int categoryCount = _context.Categories.Count();
-            return new JsonResult(categoryCount);
-        }
+        
         private readonly SwitchPlayContext _context;
         private readonly ICategoryService _categoryService;
 
@@ -76,6 +74,12 @@ namespace SwitchPlay.Controllers
             var category = await _categoryService.GetCategoryAsync(id);
             await _categoryService.DeleteCategoryAsync(category.Id);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult GetCategoryCount()
+        {
+            int categoryCount = _context.Categories.Count();
+            return new JsonResult(categoryCount);
         }
     }
 }

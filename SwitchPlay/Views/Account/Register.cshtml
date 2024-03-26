@@ -1,0 +1,84 @@
+﻿@model SwitchPlay.Models.AccountViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Shto Perdorues";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <form asp-action="Register" asp-controller="Account" method="post">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="floating-label" for="Text">Emri <span class="text-danger">*</span></label>
+                                <input asp-for="FirstName" required class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="floating-label" for="Text">Mbiemri <span class="text-danger">*</span></label>
+                                <input asp-for="LastName" required class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="floating-label" for="Text">Email <span class="text-danger">*</span></label>
+                                <input required asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Text">Password <span class="text-danger">*</span></label>
+                                <input required asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Text">Konfirmo Passsword-in <span class="text-danger">*</span></label>
+                                <input required asp-for="ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group ml-3">
+                                    <span class="badge badge-warning">1. Minimumi 6 karaktere (A-Z)</span><br />
+                                    <span class="badge badge-warning">2. Nje shkronje te madhe</span><br />
+                                    <span class="badge badge-warning">3. Nje simbol (?!-.;)</span><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-sm-12" style="margin-bottom: 40px;">
+                    <div class="col-sm-6">
+                        <a class="btn btn-outline-primary" asp-action="Index" asp-controller="User"><i class="fas fa-arrow-left"></i>&nbsp; Kthehu</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <button style="float:right;" class="btn btn-primary">Krijo &nbsp;<i class="fas fa-save"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/assets/plugins/moment/moment.js"></script>
+    <!-- Fontfaces CSS-->
+    <link href="~/css/font-face.css" rel="stylesheet" media="all">
+    <link href="~/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="~/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="~/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <script src="~/assets/plugins/moment/moment.js"></script>
+}

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SwitchPlay.Data;
 
@@ -11,9 +12,11 @@ using SwitchPlay.Data;
 namespace SwitchPlay.Migrations
 {
     [DbContext(typeof(SwitchPlayContext))]
-    partial class SwitchPlayContextModelSnapshot : ModelSnapshot
+    [Migration("20240307164347_44ADMINA")]
+    partial class _44ADMINA
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -416,7 +419,7 @@ namespace SwitchPlay.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "269c51a9-77d4-4ad6-9e4b-45dd8dec0681",
+                            ConcurrencyStamp = "fd734717-fb35-4ec9-9fa2-492c2782c84d",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -424,7 +427,7 @@ namespace SwitchPlay.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@admin.com",
                             NormalizedUserName = "admin@admin.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBMChX9FLGHAvYfcxHuh8kqCKVdbfEP9emOsCpOblgngVpJI6t2YSOBo2A5TDIOnzA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC9h4EgIL/xm6fBSFaLUzwR52alyi+Twrzn8Ohrmhb/LEmI2QXiFXt9gQkKRTBJ0Fw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,

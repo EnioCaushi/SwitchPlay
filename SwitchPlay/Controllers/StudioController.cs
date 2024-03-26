@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SwitchPlay.Data;
 using SwitchPlay.Migrations;
 using SwitchPlay.Models;
@@ -6,6 +7,7 @@ using SwitchPlay.Services;
 
 namespace SwitchPlay.Controllers
 {
+    [Authorize]
     public class StudioController : Controller
     {
         public IActionResult GetStudioCount()

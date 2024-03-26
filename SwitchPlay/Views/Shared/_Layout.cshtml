@@ -32,7 +32,7 @@
             -->
             <div class="sidebar-wrapper">
                 <div class="logo">
-                    <a href="http://www.creative-tim.com" class="simple-text">
+                    <a class="simple-text">
                         Switch Play
                     </a>
                 </div>
@@ -65,6 +65,17 @@
                         <a asp-action="Index" asp-controller="Game" class="nav-link" >
                             <i class="nc-icon nc-atom"></i>
                             <p>Games</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-controller="User" class="nav-link" >
+                            <i class="nc-icon nc-atom"></i>
+                            <p>Users</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="Logout" asp-controller="Account" class="nav-link">
+                            <i class="fa fa-unlock"></i> Dil
                         </a>
                     </li>
                 </ul>

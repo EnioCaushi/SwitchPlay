@@ -1,0 +1,52 @@
+﻿using SwitchPlay.Identity;
+using SwitchPlay.Services;
+using SwitchPlay.Models.AccountViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Security;
+using System.Web.Helpers;
+
+namespace SwitchPlay.Controllers
+{
+    public class UserController : Controller
+    {
+        private readonly IUserService _userService;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        public UserController(IUserService userService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        {
+            _userService = userService;
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+        [HttpGet]
+        
+        public async Task<IActionResult> Index()
+        {
+            var usersToReturn = await _userService.GetUsersAsync();
+            return View(usersToReturn);
+        }
+
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            var UserId = _signInManager.UserManager.GetUserId(User);
+            var thisuser = _userManager.Users.SingleOrDefault(i => i.Id == UserId);
+
+            try
+            {
+                if (user != null && user.Id != thisuser.Id)
+                {
+                    await _userManager.DeleteAsync(user);
+                };
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index");
+            }
+        }
+    }
+}

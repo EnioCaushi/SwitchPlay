@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SwitchPlay.Data;
 using SwitchPlay.Migrations;
@@ -9,16 +10,11 @@ using System.Data;
 namespace SwitchPlay.Controllers
 {
 
-
+    [Authorize]
     public class GameController : Controller
     {
 
-        public IActionResult GetGameCount()
-        {
-            int gameCount = _context.Games.Count();
-            return new JsonResult(gameCount);
-        }
-        private readonly SwitchPlayContext _context;
+        //private readonly SwitchPlayContext _context;
         private readonly IGameService _gameService;
         private readonly ICategoryService _categoryService;
         private readonly IStudioService _studioService;
@@ -27,7 +23,7 @@ namespace SwitchPlay.Controllers
         private readonly IGamePlatformService _gamePlatformService;
         private readonly IConfiguration _configuration;
         private readonly IFileHandleService _fileHandleService;
-        public GameController(IGameService gameService, IStudioService studioService, IConfiguration configuration, IFileHandleService fileHandleService, ICategoryService categoryService, IGameCategoryService gameCategoryService, IGamePlatformService gamePlatformService, IPlatformService platformService, SwitchPlayContext context)
+        public GameController(IGameService gameService, IStudioService studioService, IConfiguration configuration, IFileHandleService fileHandleService, ICategoryService categoryService, IGameCategoryService gameCategoryService, IGamePlatformService gamePlatformService, IPlatformService platformService)
         {
             _gameService = gameService;
             _studioService = studioService;
@@ -37,7 +33,7 @@ namespace SwitchPlay.Controllers
             _gameCategoryService = gameCategoryService;
             _gamePlatformService = gamePlatformService;
             _platformService = platformService;
-            _context = context;
+            //_context = context;
         }
 
         public async Task<IActionResult> Index()
@@ -156,6 +152,16 @@ namespace SwitchPlay.Controllers
             }
             await _gameService.DeleteGameAsync(game.Id);
             return RedirectToAction("Index");
+        }
+
+
+        public async Task<IActionResult> GetGameCount()
+        {
+            var games = await _gameService.GetAllGamesAsync();
+            //var game = games.FirstOrDefault();
+            int nr = games.ToList().Count;
+
+            return new JsonResult(nr);
         }
     }
 }

@@ -1,8 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using SwitchPlay.Identity;
 
 namespace SwitchPlay.Data
 {
-    public class SwitchPlayContext : DbContext
+    public class SwitchPlayContext : IdentityDbContext<AppUser, AppRole, string, IdentityUserClaim<string>,
+    AppUserRole, IdentityUserLogin<string>,
+    IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         public SwitchPlayContext(DbContextOptions<SwitchPlayContext> options)
             : base(options)
@@ -19,6 +24,54 @@ namespace SwitchPlay.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<AppUserRole>(userRole =>
+            {
+                userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
+
+                userRole.HasOne(ur => ur.Role)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.RoleId)
+                    .IsRequired();
+
+                userRole.HasOne(ur => ur.User)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.UserId)
+                    .IsRequired();
+            });
+
+            const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
+            // any guid, but nothing is against to use the same one
+            const string ROLE_ID = ADMIN_ID;
+            builder.Entity<AppRole>().HasData(new AppRole
+            {
+                Id = ROLE_ID,
+                Name = "admin",
+                NormalizedName = "admin"
+            });
+
+            var hasher = new PasswordHasher<AppUser>();
+            builder.Entity<AppUser>().HasData(new AppUser
+            {
+                Id = ADMIN_ID,
+                UserName = "admin@admin.com",
+                NormalizedUserName = "admin@admin.com",
+                FirstName = "admin",
+                LastName = "admin",
+                Email = "admin@admin.com",
+                NormalizedEmail = "admin@admin.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "P@ssw0rd"),
+                SecurityStamp = string.Empty,
+                UserType = "Admini i Lojrave"
+            });
+
+            builder.Entity<AppUserRole>().HasData(new AppUserRole
+            {
+                RoleId = ROLE_ID,
+                UserId = ADMIN_ID
+            });
+
 
             builder.Entity<Platform>().HasData(new Platform
             {
