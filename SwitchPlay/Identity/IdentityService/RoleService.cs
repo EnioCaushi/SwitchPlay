@@ -22,5 +22,10 @@ namespace SwitchPlay.Identity
         {
             return context.FindAllAsync();
         }
+
+        public async Task CreateRoleAsync(AppRole role)
+        {
+            await context.CreateRoleAsync(role);
+        }
     }
 }

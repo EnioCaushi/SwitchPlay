@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using SwitchPlay.Identity;
 
 namespace SwitchPlay.Models.AccountViewModels
 {
@@ -34,5 +35,8 @@ namespace SwitchPlay.Models.AccountViewModels
 
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+        
+        public IEnumerable<AppRole> Roles { get; set; }
+        public string RoleId { get; set; }
     }
 }

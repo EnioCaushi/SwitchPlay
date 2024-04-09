@@ -43,11 +43,19 @@ namespace SwitchPlay.Data
             const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
             // any guid, but nothing is against to use the same one
             const string ROLE_ID = ADMIN_ID;
+            Guid roleId = Guid.NewGuid();
             builder.Entity<AppRole>().HasData(new AppRole
             {
                 Id = ROLE_ID,
                 Name = "admin",
                 NormalizedName = "admin"
+            });
+            
+            builder.Entity<AppRole>().HasData(new AppRole
+            {
+                Id = "moderatorId",
+                Name = "moderator",
+                NormalizedName = "moderator"
             });
 
             var hasher = new PasswordHasher<AppUser>();

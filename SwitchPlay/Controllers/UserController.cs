@@ -1,13 +1,11 @@
 ﻿using SwitchPlay.Identity;
-using SwitchPlay.Services;
-using SwitchPlay.Models.AccountViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security;
-using System.Web.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SwitchPlay.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;

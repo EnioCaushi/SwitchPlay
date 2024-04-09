@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SwitchPlay.Services;
+using SwitchPlay.Data;
 using SwitchPlay.Identity;
 using SwitchPlay.Models.AccountViewModels;
 
@@ -10,25 +10,22 @@ namespace SwitchPlay.Controllers
 {
 
     //[Route("[controller]/[action]")]
+    // [Authorize(Roles = "admin")]
     public class AccountController : Controller
     {
+        private readonly SwitchPlayContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger _logger;
-        private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnvironment;
-        private readonly IConfiguration _configuration;
-        private readonly IFileHandleService _fileHandleService;
-        public AccountController(
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager,
-            ILogger<AccountController> logger, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment, IConfiguration configuration, IFileHandleService fileHandleService)
+        private readonly IRoleService _roleService;
+        public AccountController(SwitchPlayContext context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
+            ILogger<AccountController> logger, IRoleService roleService)
         {
+            _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _configuration = configuration;
-            _hostingEnvironment = hostingEnvironment;
-            _fileHandleService = fileHandleService;
+            _roleService = roleService;
         }
 
         [TempData]
@@ -116,6 +113,13 @@ namespace SwitchPlay.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
+                var userRole = new AppUserRole
+                {
+                    RoleId = "moderatorId",
+                    UserId = user.Id
+                };
+                await _context.AddAsync(userRole);
+                await _context.SaveChangesAsync(); 
                 _logger.LogInformation("User created a new account with password.");
                 if (User.Identity.IsAuthenticated)
                 {
@@ -151,13 +155,6 @@ namespace SwitchPlay.Controllers
         // {
         //     return View();
         // }
-        //
-        //
-        // [HttpGet]
-        // public IActionResult AccessDenied()
-        // {
-        //     return View();
-        // }
 
         #region Helpers
 
@@ -179,6 +176,12 @@ namespace SwitchPlay.Controllers
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
+        }
+        
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
 
         #endregion

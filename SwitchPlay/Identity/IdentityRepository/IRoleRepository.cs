@@ -10,5 +10,6 @@ namespace SwitchPlay.Identity
     {
         IEnumerable<AppRole> FindAll();
         Task<IEnumerable<AppRole>> FindAllAsync();
+        Task CreateRoleAsync(AppRole role);
     }
 }

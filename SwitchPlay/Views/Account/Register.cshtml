@@ -1,5 +1,4 @@
 ﻿@model SwitchPlay.Models.AccountViewModels.RegisterViewModel
-
 @{
     ViewData["Title"] = "Shto Perdorues";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,27 +10,40 @@
             <form asp-action="Register" asp-controller="Account" method="post">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="floating-label" for="Text">Emri <span class="text-danger">*</span></label>
                                 <input asp-for="FirstName" required class="form-control" />
                                 <span asp-validation-for="FirstName" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="floating-label" for="Text">Mbiemri <span class="text-danger">*</span></label>
                                 <input asp-for="LastName" required class="form-control" />
                                 <span asp-validation-for="LastName" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="floating-label" for="Text">Email <span class="text-danger">*</span></label>
                                 <input required asp-for="Email" class="form-control" />
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
+                        @* <div class="col-sm-6"> *@
+                        @*     <div class="form-group"> *@
+                        @*         <label>Zgjidh Rolin</label> <br /> *@
+                        @*         <select asp-for="RoleId" id="roleList" style="width: 100%;" class="select2" data-placeholder="Zgjidh"> *@
+                        @*             @foreach (var x in Model.Roles) *@
+                        @*             { *@
+                        @*                 <!option value="@x.Id">@x.Name</!option> *@
+                        @*             } *@
+                        @*         </select> *@
+                        @*     </div> *@
+                        @* </div> *@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -81,4 +93,12 @@
     <link href="~/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="~/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
     <script src="~/assets/plugins/moment/moment.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    
+    <script>
+        $('#roleList').select2();
+    </script>
 }
