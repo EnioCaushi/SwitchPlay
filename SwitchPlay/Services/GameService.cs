@@ -35,5 +35,11 @@ namespace SwitchPlay.Services
         {
             return await _context.GetAllAsync();
         }
+
+
+        public IEnumerable<Game> GetAllGames() 
+        {
+            return  _context.GetAll();
+        }
     }
 }

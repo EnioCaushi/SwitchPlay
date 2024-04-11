@@ -9,5 +9,7 @@ namespace SwitchPlay.Services
         Task DeleteGameAsync(int id);
         Task<Game> GetGameAsync(int id);
         Task<IEnumerable<Game>> GetAllGamesAsync();
+        IEnumerable<Game> GetAllGames();
     }
 }
+ 

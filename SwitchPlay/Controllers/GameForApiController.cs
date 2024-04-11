@@ -9,18 +9,21 @@ namespace SwitchPlay.Controllers;
 [ApiController]
 public class GameForApiController : Controller
 {
-        private readonly SwitchPlayContext _switchPlayContext;
-        private readonly IGameService _gameService;
-        
-        public GameForApiController(IGameService gameService, SwitchPlayContext switchPlayContext)
-        {
-            _gameService = gameService;
-            _switchPlayContext = switchPlayContext;
-        }
+    private readonly SwitchPlayContext _switchPlayContext;
+    private readonly IGameService _gameService;
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Game>>  Index()
-        {
-            return _switchPlayContext.Games.ToList();
-        }
+    public GameForApiController(IGameService gameService, SwitchPlayContext switchPlayContext)
+    {
+        _gameService = gameService;
+        _switchPlayContext = switchPlayContext;
+    }
+
+    [HttpGet]
+    public IEnumerable<Game> Index()
+    {
+       // return _switchPlayContext.Games.ToList();
+        return _gameService.GetAllGames();
+    }
+
+ 
 } 
